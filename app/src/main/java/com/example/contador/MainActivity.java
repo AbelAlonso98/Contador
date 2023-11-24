@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     int nivelUpgradeAutoClick = 1;
     int nivelUpgradeSpeed = 1;
     int tiempoAutoClick = 1000;
-
+    String user;
+    MyDataBaseHelper myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             nivelUpgradeClick = extras.getInt("UPGRADE_NIVEL_CLICK");
             nivelUpgradeAutoClick = extras.getInt("UPGRADE_NIVEL_AUTOCLICK");
             nivelUpgradeSpeed = extras.getInt("UPGRADE_NIVEL_SPEED");
+            user = extras.getString("USER");
         }
 
         //  Cargo todos los componentes que voy a usar.
@@ -77,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         fade_in.setDuration(100);
         mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
         soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         soundId = soundPool.load(this, R.raw.coin_sound, 1);
 
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
     public void sumar(View v) {
         num = num.add(inc);
         moneda.startAnimation(fade_in);
+        Toast.makeText(moneda.getContext(), "+1", Toast.LENGTH_SHORT);
         soundPool.play(soundId, 1, 1, 0, 0, 1);
         setContText();
     }
@@ -228,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void irACompras(View view) {
-        //mediaPlayer.stop();
         Intent i = new Intent(this, Compras.class);
         i.putExtra("MONEY_COUNT", num.toString());
         i.putExtra("CLICK_VALUE", inc.toString());
@@ -245,10 +247,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        mediaPlayer.stop();
+    protected void onDestroy() {
+        super.onDestroy();
         soundPool.release();
         soundPool = null;
+        mediaPlayer.stop();
+        mediaPlayer.release();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+        myDB = new MyDataBaseHelper(MainActivity.this);
+        myDB.updateUser(user);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer.start();
+
     }
 }

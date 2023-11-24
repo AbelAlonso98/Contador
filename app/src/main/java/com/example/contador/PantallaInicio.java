@@ -22,7 +22,7 @@ public class PantallaInicio extends AppCompatActivity {
         }
     }
     public void irAMainActivity(View v) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, Login.class);
         startActivity(i);
         finish();
     }
