@@ -10,14 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class Login extends AppCompatActivity {
     EditText userTxt, passwordTxt;
     Button loginButton, registerButton;
     MyDataBaseHelper myDB;
-    String user = "?";
-
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +49,20 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
                 passwordTxt.setText("");
             } else {
-                user = cursor.getString(0);
+                user = new User(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getString(8),
+                        cursor.getInt(9),
+                        cursor.getInt(10),
+                        cursor.getInt(11));
                 Intent i = new Intent(this, MainActivity.class);
-                i.putExtra("MONEY_COUNT", cursor.getString(2));
-                i.putExtra("CLICK_VALUE", cursor.getString(3));
-                i.putExtra("AUTOCLICK_VALUE", cursor.getString(4));
-                i.putExtra("AUTOCLICK_TIME", cursor.getInt(5));
-                i.putExtra("UPGRADE_PRECIO_CLICK", cursor.getString(6));
-                i.putExtra("UPGRADE_PRECIO_AUTOCLICK", cursor.getString(7));
-                i.putExtra("UPGRADE_PRECIO_SPEED", cursor.getString(8));
-                i.putExtra("UPGRADE_NIVEL_CLICK", cursor.getString(9));
-                i.putExtra("UPGRADE_NIVEL_AUTOCLICK", cursor.getString(10));
-                i.putExtra("UPGRADE_NIVEL_SPEED", cursor.getString(11));
                 i.putExtra("USER", user);
                 startActivity(i);
                 finish();

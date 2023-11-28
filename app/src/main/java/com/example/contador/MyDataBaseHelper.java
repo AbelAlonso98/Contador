@@ -47,9 +47,9 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         COLUMN_PRECIOCLICK + " TEXT, " +
                         COLUMN_PRECIOAUTOCLICK + " TEXT, " +
                         COLUMN_PRECIOSPEED + " TEXT, " +
-                        COLUMN_NIVELCLICK + " TEXT, " +
-                        COLUMN_NIVELAUTOCLICK + " TEXT, " +
-                        COLUMN_NIVELSPEED + " TEXT); ";
+                        COLUMN_NIVELCLICK + " INT, " +
+                        COLUMN_NIVELAUTOCLICK + " INT, " +
+                        COLUMN_NIVELSPEED + " INT); ";
         db.execSQL(query);
     }
 
@@ -66,38 +66,38 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NUM, "0");
         cv.put(COLUMN_INC, "1");
         cv.put(COLUMN_INCAUTO, "1");
-        cv.put(COLUMN_TIEMPOAUTOCLICK, Integer.parseInt("1000"));
+        cv.put(COLUMN_TIEMPOAUTOCLICK, 1000);
         cv.put(COLUMN_PRECIOCLICK, "100");
         cv.put(COLUMN_PRECIOAUTOCLICK, "200");
         cv.put(COLUMN_PRECIOSPEED, "400");
-        cv.put(COLUMN_NIVELCLICK, "1");
-        cv.put(COLUMN_NIVELAUTOCLICK, "1");
-        cv.put(COLUMN_NIVELSPEED, "1");
+        cv.put(COLUMN_NIVELCLICK, 1);
+        cv.put(COLUMN_NIVELAUTOCLICK, 1);
+        cv.put(COLUMN_NIVELSPEED, 1);
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1) {
             Toast.makeText(context, "El usuario ya existe.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Succesfully Added", Toast.LENGTH_SHORT).show();
         }
+
     }
 
-    void updateUser(String user){
+    void updateUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_USER, user.toUpperCase());
-        cv.put(COLUMN_NUM, "0");
-        cv.put(COLUMN_INC, "1");
-        cv.put(COLUMN_INCAUTO, "1");
-        cv.put(COLUMN_TIEMPOAUTOCLICK, Integer.parseInt("1000"));
-        cv.put(COLUMN_PRECIOCLICK, "100");
-        cv.put(COLUMN_PRECIOAUTOCLICK, "200");
-        cv.put(COLUMN_PRECIOSPEED, "400");
-        cv.put(COLUMN_NIVELCLICK, "1");
-        cv.put(COLUMN_NIVELAUTOCLICK, "1");
-        cv.put(COLUMN_NIVELSPEED, "1");
-        db.update(TABLE_NAME, cv, COLUMN_USER + "=" +user.toUpperCase(), null);
+        cv.put(COLUMN_USER, user.getUser().toUpperCase());
+        cv.put(COLUMN_NUM, user.getMoney());
+        cv.put(COLUMN_INC, user.getClickValue());
+        cv.put(COLUMN_INCAUTO, user.getAutoClickValue());
+        cv.put(COLUMN_TIEMPOAUTOCLICK, user.getAutoClickTime());
+        cv.put(COLUMN_PRECIOCLICK, user.getUpgradePrecioClick());
+        cv.put(COLUMN_PRECIOAUTOCLICK, user.getUpgradePrecioAutoClick());
+        cv.put(COLUMN_PRECIOSPEED, user.getUpgradePrecioSpeed());
+        cv.put(COLUMN_NIVELCLICK, user.getUpgradeNivelClick());
+        cv.put(COLUMN_NIVELAUTOCLICK, user.getUpgradeNivelAutoClick());
+        cv.put(COLUMN_NIVELSPEED, user.getUpgradeNivelSpeed());
+        db.update(TABLE_NAME, cv, COLUMN_USER + " = " +user.getUser().toUpperCase(), null);
     }
-
     Cursor getUser(String user){
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_USER + " = '" + user.toUpperCase() + "';";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -105,7 +105,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
         if(db != null){
             cursor = db.rawQuery(query, null);
-        }
+            }
         return cursor;
     }
 }

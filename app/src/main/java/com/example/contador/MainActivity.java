@@ -1,6 +1,5 @@
 package com.example.contador;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -46,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
     int nivelUpgradeAutoClick = 1;
     int nivelUpgradeSpeed = 1;
     int tiempoAutoClick = 1000;
-    String user;
+    String userNick;
     MyDataBaseHelper myDB;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +56,18 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            num = new BigDecimal(extras.getString("MONEY_COUNT", "0"));
-            inc = new BigDecimal(extras.getString("CLICK_VALUE", "0"));
-            incAuto = new BigDecimal(extras.getString("AUTOCLICK_VALUE", "0"));
-            tiempoAutoClick = extras.getInt("AUTOCLICK_TIME");
-            precioUpgradeClick = new BigDecimal(extras.getString("UPGRADE_PRECIO_CLICK"));
-            precioUpgradeAutoClick = new BigDecimal(extras.getString("UPGRADE_PRECIO_AUTOCLICK"));
-            precioUpgradeSpeed = new BigDecimal(extras.getString("UPGRADE_PRECIO_SPEED"));
-            nivelUpgradeClick = extras.getInt("UPGRADE_NIVEL_CLICK");
-            nivelUpgradeAutoClick = extras.getInt("UPGRADE_NIVEL_AUTOCLICK");
-            nivelUpgradeSpeed = extras.getInt("UPGRADE_NIVEL_SPEED");
-            user = extras.getString("USER");
+            user = (User) extras.getSerializable("USER");
+            userNick = user.getUser();
+            num = new BigDecimal(user.getMoney());
+            inc = new BigDecimal(user.getClickValue());
+            incAuto = new BigDecimal(user.getAutoClickValue());
+            tiempoAutoClick = user.getAutoClickTime();
+            precioUpgradeClick = new BigDecimal(user.getUpgradePrecioClick());
+            precioUpgradeAutoClick = new BigDecimal(user.getUpgradePrecioAutoClick());
+            precioUpgradeSpeed = new BigDecimal(user.getUpgradePrecioSpeed());
+            nivelUpgradeClick = user.getUpgradeNivelClick();
+            nivelUpgradeAutoClick = user.getUpgradeNivelAutoClick();
+            nivelUpgradeSpeed = user.getUpgradeNivelSpeed();
         }
 
         //  Cargo todos los componentes que voy a usar.
@@ -116,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Esta opcion con un mapa, la veo más bonita y estable.
         HashMap<String, BigDecimal> VALORES = new LinkedHashMap<>();
-
         VALORES.put("K", new BigDecimal("1000"));
         VALORES.put("M", new BigDecimal("1000000"));
         VALORES.put("B", new BigDecimal("1000000000"));
@@ -260,6 +260,19 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         mediaPlayer.pause();
         myDB = new MyDataBaseHelper(MainActivity.this);
+        user = new User(
+                user.getUser(),
+                user.getPassword(),
+                num.toString(),
+                inc.toString(),
+                incAuto.toString(),
+                tiempoAutoClick,
+                precioUpgradeClick.toString(),
+                precioUpgradeAutoClick.toString(),
+                precioUpgradeSpeed.toString(),
+                nivelUpgradeClick,
+                nivelUpgradeAutoClick,
+                nivelUpgradeAutoClick);
         myDB.updateUser(user);
 
     }
