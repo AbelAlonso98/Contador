@@ -124,14 +124,7 @@
                             android:onClick="mejorarClick"
                             android:text="100$" />
 
-                        <Button
-                            android:id="@+id/botonMejoraTotal"
-                            style="@style/maxUpgradeButtonTheme"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:onClick="mejorarClickTotal"
-                            android:text="100$ x1" />
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -191,14 +184,7 @@
                             android:onClick="mejorarAutoClick"
                             android:text="200$" />
 
-                        <Button
-                            android:id="@+id/botonSumarAutoTotal"
-                            style="@style/maxUpgradeButtonTheme"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:onClick="mejorarAutoClickTotal"
-                            android:text="200$ x1" />
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -259,14 +245,7 @@
                             android:onClick="mejorarAutoClickSpeed"
                             android:text="400$" />
 
-                        <Button
-                            android:id="@+id/botonSumarAutoSpeedTotal"
-                            style="@style/maxUpgradeButtonTheme"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:onClick="mejorarAutoClickSpeedTotal"
-                            android:text="400$ x1" />
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

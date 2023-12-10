@@ -1,14 +1,23 @@
 package com.example.contador;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Login extends AppCompatActivity {
     EditText userTxt, passwordTxt;
@@ -32,11 +41,39 @@ public class Login extends AppCompatActivity {
             }
         });
         myDB = new MyDataBaseHelper(Login.this);
+        RecyclerView rv = findViewById(R.id.rankingRv);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        Cursor cursor = myDB.getUsers();
+        List<ItemRanking> rankings = new ArrayList<>();
+        Log.println(Log.ERROR, "Quepasa", Integer.toString(cursor.getCount()));
+        if(cursor.getCount()>0) {
+            cursor.moveToNext();
+            for (int i = 0; i < 10 && i < cursor.getCount(); i++) {
+                if(i==0)
+                    rankings.add(new ItemRanking(cursor.getString(0) + " - " + cursor.getString(1), R.drawable.img_first_medal));
+                else if(i==1)
+                    rankings.add(new ItemRanking(cursor.getString(0) + " - " + cursor.getString(1), R.drawable.img_second_medal));
+                else if( i == 2)
+                    rankings.add(new ItemRanking(cursor.getString(0) + " - " + cursor.getString(1), R.drawable.img_third_medal));
+                else
+                    rankings.add(new ItemRanking(cursor.getString(0) + " - " + cursor.getString(1)));
+                cursor.moveToNext();
+            }
+        }
+        rv.setAdapter(new ItemRankingAdapter(rankings));
+
+
     }
 
 
     public void irARegistro(View view) {
         Intent i = new Intent(this, Register.class);
+        startActivity(i);
+        finish();
+    }
+    public void irAInicio(View view) {
+        Intent i = new Intent(this, PantallaInicio.class);
         startActivity(i);
         finish();
     }

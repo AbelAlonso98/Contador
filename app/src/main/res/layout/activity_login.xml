@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    android:paddingLeft="70dp"
-    android:paddingRight="70dp">
+    tools:context=".Login">
 
     <EditText
         android:id="@+id/userTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="460dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:ems="10"
         android:hint="User"
         android:inputType="text"
@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -43,6 +44,8 @@
         android:layout_marginTop="16dp"
         android:text="Login"
         android:onClick="login"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTxt" />
@@ -54,7 +57,24 @@
         android:layout_marginTop="16dp"
         android:text="Register"
         android:onClick="irARegistro"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+    <ImageView
+        android:id="@+id/backButton"
+        style="@style/backImage"
+        android:onClick="irAInicio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rankingRv"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toTopOf="@+id/userTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

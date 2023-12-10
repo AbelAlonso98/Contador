@@ -54,6 +54,26 @@
         <item name="android:layout_width">35dp</item>
         <item name="android:layout_height">35dp</item>
     </style>
+    <style name="firstPlace">
+        <item name="srcCompat">@drawable/img_first_orange</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="height">25dp</item>
+    </style>
+    <style name="secondPlace">
+        <item name="srcCompat">@drawable/img_second_orange</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="height">25dp</item>
+    </style>
+    <style name="thirdPlace">
+        <item name="srcCompat">@drawable/img_third_orange</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="height">25dp</item>
+    </style>
+    <style name="medal">
+        <item name="srcCompat">@drawable/img_medal_orange</item>
+        <item name="android:layout_width">15dp</item>
+        <item name="height">15dp</item>
+    </style>
 
 
 </resources>

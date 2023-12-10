@@ -114,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setContText() {
-
-        // Esta opcion con un mapa, la veo más bonita y estable.
         HashMap<String, BigDecimal> VALORES = new LinkedHashMap<>();
         VALORES.put("K", new BigDecimal("1000"));
         VALORES.put("M", new BigDecimal("1000000"));
@@ -147,30 +145,6 @@ public class MainActivity extends AppCompatActivity {
                     contador.setText(num.divide(VALORES.get(s)).setScale(2, RoundingMode.HALF_EVEN).toString() + s);
             }
         }
-
-        // Esta opcion con dos arrays, el inconveniente es que ambos han de tener las mismas dimensiones.
-//        for(String s: VALORES.keySet()){
-//            if(num.compareTo(VALORES.get(s)) >= 0)
-//                contador.setText(num.divide(VALORES.get(s)).setScale(2, RoundingMode.HALF_EVEN).toString() + s);
-//
-//        }
-//        String[] SIGLAS = {"K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q", "D"};
-//        BigDecimal[] NUMBERS = {
-//                new BigDecimal("1000000"),
-//                new BigDecimal("1000000000"),
-//                new BigDecimal("1000000000000"),
-//                new BigDecimal("1000000000000000"),
-//                new BigDecimal("1000000000000000000"),
-//                new BigDecimal("1000000000000000000000"),
-//                new BigDecimal("1000000000000000000000000"),
-//                new BigDecimal("1000000000000000000000000000"),
-//                new BigDecimal("1000000000000000000000000000000"),
-//                new BigDecimal("1000000000000000000000000000000000")};
-//        for (int i = 0; i < NUMBERS.length; i++) {
-//            BigDecimal n = NUMBERS[i];
-//            if (num.compareTo(n) >= 0)
-//                contador.setText(num.divide(n).setScale(2, RoundingMode.HALF_EVEN).toString() + SIGLAS[i]);
-//        }
         textValorClick.setText("Click: " + inc.toString());
         textValorAutoClick.setText("Autoclick: " + incAuto.toString());
         textVelocidadAutoClick.setText("Autoclick speed: " + tiempoAutoClick + "m" + "s");
@@ -205,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder constructor = new AlertDialog.Builder(this);
         constructor.setCancelable(true);
         constructor.setTitle("Salir");
-        constructor.setMessage("Si sales perderás el progreso, ¿quieres salir?");
+        constructor.setMessage("¿Seguro que quieres salir?");
         constructor.setPositiveButton("SALIR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -232,16 +206,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void irACompras(View view) {
         Intent i = new Intent(this, Compras.class);
-        i.putExtra("MONEY_COUNT", num.toString());
-        i.putExtra("CLICK_VALUE", inc.toString());
-        i.putExtra("AUTOCLICK_VALUE", incAuto.toString());
-        i.putExtra("AUTOCLICK_TIME", tiempoAutoClick);
-        i.putExtra("UPGRADE_PRECIO_CLICK", precioUpgradeClick.toString());
-        i.putExtra("UPGRADE_PRECIO_AUTOCLICK", precioUpgradeAutoClick.toString());
-        i.putExtra("UPGRADE_PRECIO_SPEED", precioUpgradeSpeed.toString());
-        i.putExtra("UPGRADE_NIVEL_CLICK", nivelUpgradeClick);
-        i.putExtra("UPGRADE_NIVEL_AUTOCLICK", nivelUpgradeAutoClick);
-        i.putExtra("UPGRADE_NIVEL_SPEED", nivelUpgradeSpeed);
+        user = new User(
+                user.getUser(),
+                user.getPassword(),
+                num.toString(),
+                inc.toString(),
+                incAuto.toString(),
+                tiempoAutoClick,
+                precioUpgradeClick.toString(),
+                precioUpgradeAutoClick.toString(),
+                precioUpgradeSpeed.toString(),
+                nivelUpgradeClick,
+                nivelUpgradeAutoClick,
+                nivelUpgradeSpeed);
+        i.putExtra("USER", user);
         startActivity(i);
         finish();
     }

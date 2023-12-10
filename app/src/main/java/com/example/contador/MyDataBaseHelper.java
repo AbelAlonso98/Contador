@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class MyDataBaseHelper extends SQLiteOpenHelper {
     private Context context;
     private static final String DATABASE_NAME = "UsersData.db";
@@ -26,7 +28,6 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NIVELCLICK = "game_nivelclick";
     private static final String COLUMN_NIVELAUTOCLICK = "game_nivelautoclick";
     private static final String COLUMN_NIVELSPEED = "game_nivelspeed";
-
 
 
     public MyDataBaseHelper(@Nullable Context context) {
@@ -82,7 +83,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    void updateUser(User user){
+    void updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_USER, user.getUser().toUpperCase());
@@ -96,16 +97,31 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NIVELCLICK, user.getUpgradeNivelClick());
         cv.put(COLUMN_NIVELAUTOCLICK, user.getUpgradeNivelAutoClick());
         cv.put(COLUMN_NIVELSPEED, user.getUpgradeNivelSpeed());
-        db.update(TABLE_NAME, cv, COLUMN_USER + " = " +user.getUser().toUpperCase(), null);
+        long result = db.update(TABLE_NAME, cv, COLUMN_USER + " = ?", new String[]{user.getUser().toUpperCase()});
+        if(result == -1)
+            Toast.makeText(context, "Error updating", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, "Updated correctly", Toast.LENGTH_SHORT).show();
     }
-    Cursor getUser(String user){
+
+    Cursor getUser(String user) {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_USER + " = '" + user.toUpperCase() + "';";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
-
-        if(db != null){
+        if (db != null) {
             cursor = db.rawQuery(query, null);
-            }
+        }
+        return cursor;
+    }
+
+    Cursor getUsers(){
+        String query = "SELECT " + COLUMN_USER + ", " + COLUMN_NUM + " FROM " + TABLE_NAME +
+                " ORDER BY CAST(" + COLUMN_NUM + " AS INT) DESC;";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+        }
         return cursor;
     }
 }
