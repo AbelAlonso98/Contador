@@ -1,4 +1,6 @@
-package com.example.contador;
+package com.example.contador.rvstuff;
+
+import com.example.contador.R;
 
 public class ItemRanking {
     private final String name;

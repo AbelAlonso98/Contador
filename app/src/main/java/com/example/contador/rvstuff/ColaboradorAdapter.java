@@ -1,4 +1,4 @@
-package com.example.contador;
+package com.example.contador.rvstuff;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,18 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.contador.R;
+
 import java.util.List;
 
-public class CentrosAdapter extends ArrayAdapter<Centro> {
+public class ColaboradorAdapter extends ArrayAdapter<Colaborador> {
 
-    public CentrosAdapter(@NonNull Context context, int resource, @NonNull List<Centro> objects) {
+    public ColaboradorAdapter(@NonNull Context context, int resource, @NonNull List<Colaborador> objects) {
         super(context, resource, objects);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Centro c = getItem(position);
+        Colaborador c = getItem(position);
         if(convertView  == null)
             convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.item, parent, false);
         ((ImageView) convertView.findViewById(R.id.imgEquipo)).setImageResource(c.getImagen());

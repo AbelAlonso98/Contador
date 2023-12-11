@@ -1,10 +1,10 @@
-package com.example.contador;
+package com.example.contador.rvstuff;
 
-public class Centro {
+public class Colaborador {
     private final String nombre, direccion;
     private final int imagen;
 
-    public Centro(String nombre, String direccion, int imagen) {
+    public Colaborador(String nombre, String direccion, int imagen) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.imagen = imagen;
