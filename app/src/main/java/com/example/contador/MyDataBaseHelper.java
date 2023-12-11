@@ -13,21 +13,11 @@ import java.util.ArrayList;
 
 public class MyDataBaseHelper extends SQLiteOpenHelper {
     private Context context;
-    private static final String DATABASE_NAME = "UsersData.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "users_login";
-    private static final String COLUMN_USER = "login_user";
-    private static final String COLUMN_PASSWORD = "login_password";
-    private static final String COLUMN_NUM = "game_num";
-    private static final String COLUMN_INC = "game_inc";
-    private static final String COLUMN_INCAUTO = "game_incauto";
-    private static final String COLUMN_TIEMPOAUTOCLICK = "game_tiempoautoclick";
-    private static final String COLUMN_PRECIOCLICK = "game_precioclick";
-    private static final String COLUMN_PRECIOAUTOCLICK = "game_precioautoclick";
-    private static final String COLUMN_PRECIOSPEED = "game_preciospeed";
-    private static final String COLUMN_NIVELCLICK = "game_nivelclick";
-    private static final String COLUMN_NIVELAUTOCLICK = "game_nivelautoclick";
-    private static final String COLUMN_NIVELSPEED = "game_nivelspeed";
+    private static final String DATABASE_NAME = "UsersData.db", TABLE_NAME = "users_login", COLUMN_USER = "login_user", COLUMN_PASSWORD = "login_password",
+            COLUMN_NUM = "game_num", COLUMN_INC = "game_inc", COLUMN_INCAUTO = "game_incauto", COLUMN_TIEMPOAUTOCLICK = "game_tiempoautoclick",
+            COLUMN_PRECIOCLICK = "game_precioclick", COLUMN_PRECIOAUTOCLICK = "game_precioautoclick", COLUMN_PRECIOSPEED = "game_preciospeed",
+            COLUMN_NIVELCLICK = "game_nivelclick", COLUMN_NIVELAUTOCLICK = "game_nivelautoclick", COLUMN_NIVELSPEED = "game_nivelspeed";
 
 
     public MyDataBaseHelper(@Nullable Context context) {
@@ -98,7 +88,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NIVELAUTOCLICK, user.getUpgradeNivelAutoClick());
         cv.put(COLUMN_NIVELSPEED, user.getUpgradeNivelSpeed());
         long result = db.update(TABLE_NAME, cv, COLUMN_USER + " = ?", new String[]{user.getUser().toUpperCase()});
-        if(result == -1)
+        if (result == -1)
             Toast.makeText(context, "Error updating", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Updated correctly", Toast.LENGTH_SHORT).show();
@@ -114,7 +104,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    Cursor getUsers(){
+    Cursor getUsers() {
         String query = "SELECT " + COLUMN_USER + ", " + COLUMN_NUM + " FROM " + TABLE_NAME +
                 " ORDER BY CAST(" + COLUMN_NUM + " AS INT) DESC;";
         SQLiteDatabase db = this.getReadableDatabase();

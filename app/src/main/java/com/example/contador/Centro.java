@@ -1,8 +1,7 @@
 package com.example.contador;
 
 public class Centro {
-    private final String nombre;
-    private final String direccion;
+    private final String nombre, direccion;
     private final int imagen;
 
     public Centro(String nombre, String direccion, int imagen) {

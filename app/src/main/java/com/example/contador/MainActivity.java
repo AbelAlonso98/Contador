@@ -23,28 +23,16 @@ import java.util.LinkedHashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView contador;
-    TextView textValorClick;
-    TextView textValorAutoClick;
-    TextView textVelocidadAutoClick;
+    TextView contador, textValorClick, textValorAutoClick, textVelocidadAutoClick;
     ImageView moneda;
     ScaleAnimation fade_in = new ScaleAnimation(0.7f, 1.2f, 0.7f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
     MediaPlayer mediaPlayer;
     SoundPool soundPool;
     int soundId;
+    BigDecimal num = new BigDecimal("3000"), inc = new BigDecimal("1"), incAuto = new BigDecimal("1");
+    BigDecimal precioUpgradeClick = new BigDecimal("100"), precioUpgradeAutoClick = new BigDecimal("200"), precioUpgradeSpeed = new BigDecimal("400");
 
-    BigDecimal num = new BigDecimal("3000");
-    BigDecimal inc = new BigDecimal("1");
-    BigDecimal incAuto = new BigDecimal("1");
-
-    BigDecimal precioUpgradeClick = new BigDecimal("100");
-    BigDecimal precioUpgradeAutoClick = new BigDecimal("200");
-    BigDecimal precioUpgradeSpeed = new BigDecimal("400");
-
-    int nivelUpgradeClick = 1;
-    int nivelUpgradeAutoClick = 1;
-    int nivelUpgradeSpeed = 1;
-    int tiempoAutoClick = 1000;
+    int nivelUpgradeClick = 1, nivelUpgradeAutoClick = 1, nivelUpgradeSpeed = 1, tiempoAutoClick = 1000;
     String userNick;
     MyDataBaseHelper myDB;
     User user;
@@ -192,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         AlertDialog dialog = constructor.create();
         dialog.show();
 
